@@ -75,5 +75,42 @@ public class ServiceApi extends Service {
         queue.add(getRequest);
     }
 
+    public void FoodDetail(String fooddetail)
+    {
+        final String url = "https://api.nal.usda.gov/ndb/search/?format=json&sort=n&q&max=25&api_key=ZPGqFErNaYE90DRzRPJxyuF4fyt6gq15cbPdq1kT&y=" + fooddetail;
+
+        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        Gson gson = new Gson();
+                        // display response
+                        Log.d("Response", response.toString());
+
+                        LocalBroadcastManager bm = LocalBroadcastManager.getInstance(getApplicationContext());
+                        Intent intent = new Intent("update-ui");
+                        bm.sendBroadcast(intent);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        );
+
+        queue.add(getRequest);
+
+    }
+
+
+
+
+
+
+
+
 
 }
