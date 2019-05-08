@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Appproject</string>
+    <string name="details_title">Nutrition Details</string>
+    <string name="btn_detais">Okay</string>
 </resources>
