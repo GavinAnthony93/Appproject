@@ -8,7 +8,12 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
 
 import com.example.appproject.R;
 
@@ -17,8 +22,12 @@ import com.example.appproject.R;
 public class DialogBox extends AppCompatDialogFragment {
 
     private EditText EditName;
-    private EditText EditId;
     private EditText EditHeight;
+    private EditText EditWeight;
+    RadioGroup radioGroup;
+    RadioButton radioButton;
+
+
     private DialogListener listener;
 
     @Override
@@ -36,13 +45,14 @@ public class DialogBox extends AppCompatDialogFragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 String name = EditName.getText().toString();
-                String id = EditId.getText().toString();
-                listener.applyTexts(name,id);
+                String height = EditHeight.getText().toString();
+                String weight = EditWeight.getText().toString();
+                listener.applyTexts(name,height, weight);
             }
         });
         EditName = view.findViewById(R.id.EditName);
-        EditId = view.findViewById(R.id.EditId);
         EditHeight = view.findViewById(R.id.EditHeight);
+        EditWeight = view.findViewById(R.id.EditMainWeight);
 
         return builder.create();
     }
@@ -57,9 +67,11 @@ public class DialogBox extends AppCompatDialogFragment {
         }
 
     }
+
+
     public interface DialogListener{
 
-        void applyTexts(String username, String password);
+        void applyTexts(String name, String height, String weight);
 
 
     }

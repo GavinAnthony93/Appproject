@@ -1,35 +1,30 @@
 package com.example.appproject;
 
-import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.database.DataSetObserver;
 import android.os.IBinder;
+import android.provider.DocumentsContract;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.appproject.Adapter.FoodAdapter;
 import com.example.appproject.Models.DialogBox;
-import com.example.appproject.Models.Item;
+import com.example.appproject.Models.FoodDto.Rootobject;
 import com.example.appproject.Models.Nitrition;
 import com.example.appproject.Services.ServiceApi;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements DialogBox.DialogListener {
 
@@ -42,11 +37,12 @@ public class MainActivity extends AppCompatActivity implements DialogBox.DialogL
     private Button BtnMainStatus;
     private EditText EditMainName;
     private EditText EditMainHeight;
+    private EditText EditMainWeight;
     ServiceApi serviceApi;
     boolean mBound = false;
-    Nitrition foods;
-    private ListAdapter adapter;
-
+    Rootobject foods;
+    private FoodAdapter adapter;
+    private ArrayList<Rootobject> nitritionArrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,13 +50,16 @@ public class MainActivity extends AppCompatActivity implements DialogBox.DialogL
         setContentView(R.layout.activity_main);
 
         BtnMainAddUser = (Button) findViewById(R.id.BtnMainAddUser);
-        foods = new Nitrition();
+        foods = new Rootobject();
         BtnMainFind = (Button) findViewById(R.id.BtnMainFind);
+        EditMainName = (EditText)findViewById(R.id.EditMainName);
+        EditMainHeight = (EditText)findViewById(R.id.EditMainHeight);
         EditFodevare = (EditText) findViewById(R.id.EditFodevare);
         BtnMainAddList = (Button) findViewById(R.id.BtnMainAddList);
         FoodList = (ListView) findViewById(R.id.List);
         BtnMainDetailStatus = (Button) findViewById(R.id.BtnMainDetailStatus);
         BtnMainStatus = (Button) findViewById(R.id.BtnMainStatus);
+        EditMainWeight = (EditText)findViewById(R.id.EditMainWeight);
 
         BtnMainAddUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements DialogBox.DialogL
             public void onClick(View view) {
 
                 String fodevaretxt = EditFodevare.getText().toString();
+                //check for correct
                 serviceApi.searchFood(fodevaretxt);
             }
         });
@@ -93,7 +93,6 @@ public class MainActivity extends AppCompatActivity implements DialogBox.DialogL
         });
 
         LocalBroadcastManager.getInstance(this).registerReceiver(listener, new IntentFilter(("update-ui")));
-
 
     }
 
@@ -119,9 +118,10 @@ public class MainActivity extends AppCompatActivity implements DialogBox.DialogL
     }
 
     @Override
-    public void applyTexts(String name, String height) {
+    public void applyTexts(String name, String height, String weight) {
         EditMainName.setText(name);
         EditMainHeight.setText(height);
+        EditMainWeight.setText(weight);
 
     }
 
@@ -146,6 +146,7 @@ public class MainActivity extends AppCompatActivity implements DialogBox.DialogL
             serviceApi = binder.getService();
             mBound = true;
             Log.d("MinService", "onServiceConnected: ");
+            updateUI();
 
         }
 
@@ -157,10 +158,10 @@ public class MainActivity extends AppCompatActivity implements DialogBox.DialogL
 
     public void updateUI()
     {
-        foods = serviceApi.getfood();
-        adapter = new FoodAdapter(this,foods.getList().getItem());
+        nitritionArrayList = serviceApi.getfood();
+        adapter = new FoodAdapter(this, nitritionArrayList );
         FoodList.setAdapter(adapter);
-        Log.d("Log", foods.getList().getItem().get(1).getName());
+
     }
 
     private BroadcastReceiver listener = new BroadcastReceiver() {

@@ -2,4 +2,9 @@
     <string name="app_name">Appproject</string>
     <string name="details_title">Nutrition Details</string>
     <string name="btn_detais">Okay</string>
+    <string-array name="gender">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Shemale</item>
+    </string-array>
 </resources>
