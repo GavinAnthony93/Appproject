@@ -7,6 +7,7 @@ public class Rootobject{
     @SerializedName("foods")
     @Expose
     private Food[] foods;
+    private int unit;
 
     @SerializedName("count")
     @Expose
@@ -18,6 +19,16 @@ public class Rootobject{
 
     public void setFoods(Food[] foods) {
         this.foods = foods;
+    }
+
+    public int getunit()
+    {
+        return unit;
+    }
+
+    public void setUnit(int unit)
+    {
+        this.unit=unit;
     }
 
     public int getCount() {

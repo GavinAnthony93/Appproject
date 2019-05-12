@@ -13,8 +13,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.appproject.Models.Calculater.Calculater;
+import com.example.appproject.Models.FoodDto.Nutrient;
 import com.example.appproject.Models.FoodDto.Rootobject;
 import com.example.appproject.Models.Nitrition;
+import com.example.appproject.Models.VitaminValues;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
@@ -25,7 +28,6 @@ public class ServiceApi extends Service {
 
     ArrayList<Rootobject> foods;
     Rootobject searchresults;
-
 
     private final IBinder binder = new LocalBinder();
     RequestQueue queue;
@@ -56,7 +58,7 @@ public class ServiceApi extends Service {
         super.onDestroy();
     }
 
-    public void searchFood(String dbno) {
+    public void searchFood(String dbno,final int unit) {
         final String url = "https://api.nal.usda.gov/ndb/V2/reports?ndbno=" + dbno + "&type=b&format=json&api_key=ZPGqFErNaYE90DRzRPJxyuF4fyt6gq15cbPdq1kT";
 
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -68,6 +70,8 @@ public class ServiceApi extends Service {
                         // display response
                         Log.d("Response", response.toString());
                         searchresults = gson.fromJson(response.toString(),Rootobject.class);
+                        searchresults.setUnit(unit);
+                        foods.add(searchresults);
                         LocalBroadcastManager bm = LocalBroadcastManager.getInstance(getApplicationContext());
                         Intent intent = new Intent("update-ui");
                         bm.sendBroadcast(intent);
@@ -84,9 +88,31 @@ public class ServiceApi extends Service {
         queue.add(getRequest);
     }
 
+    public void forsjovtest() {
+        for(Rootobject var : foods) {
+            Nutrient[] allnutrients = var.getFoods()[0].getFood().getNutrients();
+            for(Nutrient n : allnutrients) {
+                if(n.getGroup().equals("Vitamins")) {
+                    Log.d("vits", n.getName() + " : " + n.getValue() + n.getUnit());
+                }
+            }
+        }
+    }
+
+
+
+    public Calculater getNutrition()
+    {
+        Calculater c = new Calculater();
+        return c;
+    }
+
+
+
+
+
     public ArrayList<Rootobject> getfood()
     {
         return foods;
-
     }
 }

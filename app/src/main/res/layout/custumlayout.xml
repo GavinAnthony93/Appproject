@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/ImageFood"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         app:srcCompat="@mipmap/ic_launcher" />
 
     <TextView
@@ -20,9 +20,15 @@
         android:text="Name" />
 
     <TextView
-        android:id="@+id/Txt"
+        android:id="@+id/Txtdbno"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:text="TextView" />
+        android:text="Dbno" />
+
+    <TextView
+        android:id="@+id/TxtUnit"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:text="Unit" />
 </LinearLayout>
 

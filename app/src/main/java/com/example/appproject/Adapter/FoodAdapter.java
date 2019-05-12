@@ -1,6 +1,7 @@
 package com.example.appproject.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,14 +47,12 @@ public class FoodAdapter extends BaseAdapter {
         LayoutInflater inflater;
         inflater = LayoutInflater.from(context);
         convertView = inflater.inflate(R.layout.custumlayout,null);
-
         Rootobject nitrition = foods.get(i);
         ImageView image = (ImageView)convertView.findViewById(R.id.ImageFood);
         TextView t = (TextView)convertView.findViewById(R.id.TxtFoodName);
-        TextView txt = (TextView)convertView.findViewById(R.id.Txt);
-        //t.setText(foods.get(i).getFoods()[i].getFood().getDesc().getName());
-        //t.setText(nitrition.getFoods()[0].getFood().getDesc().getName());
-        t.setText(foods.get(i).getFoods()[0].getFood().getDesc().getName());
+        TextView unit = (TextView)convertView.findViewById(R.id.Txtdbno);
+        unit.setText("Pieces: " + String.valueOf(foods.get(i).getunit()));
+        t.setText("Foodname: " + foods.get(i).getFoods()[0].getFood().getDesc().getName());
 
         return convertView;
     }

@@ -9,40 +9,18 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="34dp"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/BtnMainFind"
-            android:layout_width="128dp"
-            android:layout_height="36dp"
-            android:text="Find User" />
-
-        <Button
-            android:id="@+id/BtnMainAddUser"
-            android:layout_width="131dp"
-            android:layout_height="36dp"
-            android:text="Add User" />
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/EditFodevare"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Indtast Fodevare"
-            android:inputType="textPersonName" />
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="247dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
 
         <EditText
             android:id="@+id/EditUnit"
-            android:layout_width="110dp"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Unit"
@@ -50,11 +28,27 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/BtnMainAddList"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="37dp"
-        android:text="Add To List" />
+        android:layout_height="41dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/BtnMainAddList"
+            android:layout_width="176dp"
+            android:layout_height="37dp"
+            android:text="Add To List" />
+
+        <Button
+            android:id="@+id/BtnUserInfo"
+            android:layout_width="176dp"
+            android:layout_height="37dp"
+            android:text="User Info"
+            android:onClick="showPopup"/>
+
+    </LinearLayout>
+
+
 
     <ListView
         android:id="@+id/List"
@@ -81,28 +75,44 @@
     </LinearLayout>
 
 
-    <EditText
-        android:id="@+id/EditMainName"
-        android:layout_width="164dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Name"
-        android:inputType="textPersonName" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/EditMainHeight"
-        android:layout_width="166dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Height"
-        android:inputType="textPersonName" />
+        <TextView
+            android:id="@+id/TxtMainName"
+            android:layout_width="188dp"
+            android:layout_height="42dp"
+            android:text="Surname:" />
 
-    <EditText
-        android:id="@+id/EditMainWeight"
-        android:layout_width="178dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Weight" />
+        <TextView
+            android:id="@+id/TxtLastName"
+            android:layout_width="188dp"
+            android:layout_height="44dp"
+            android:text="LastName:" />
+
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/TxtHeight"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:text="Height:" />
+
+    <TextView
+        android:id="@+id/TxtWeight"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:text="Weight:" />
+
+    <Button
+        android:id="@+id/BtnMainSave"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:text="Save The User" />
+
 
 </LinearLayout>

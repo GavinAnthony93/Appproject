@@ -22,12 +22,9 @@ import com.example.appproject.R;
 public class DialogBox extends AppCompatDialogFragment {
 
     private EditText EditName;
+    private EditText EditLastName;
     private EditText EditHeight;
     private EditText EditWeight;
-    RadioGroup radioGroup;
-    RadioButton radioButton;
-
-
     private DialogListener listener;
 
     @Override
@@ -45,15 +42,16 @@ public class DialogBox extends AppCompatDialogFragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 String name = EditName.getText().toString();
+                String last = EditLastName.getText().toString();
                 String height = EditHeight.getText().toString();
                 String weight = EditWeight.getText().toString();
-                listener.applyTexts(name,height, weight);
+                listener.applyTexts(name,last,height,weight);
             }
         });
-        EditName = view.findViewById(R.id.EditName);
+        EditName = view.findViewById(R.id.EditFirstName);
+        EditLastName = view.findViewById(R.id.EditLastName);
         EditHeight = view.findViewById(R.id.EditHeight);
         EditWeight = view.findViewById(R.id.EditMainWeight);
-
         return builder.create();
     }
 
@@ -65,14 +63,10 @@ public class DialogBox extends AppCompatDialogFragment {
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString()+ "must implement ExampleDialogListener");
         }
-
     }
-
-
     public interface DialogListener{
 
-        void applyTexts(String name, String height, String weight);
-
+        void applyTexts(String firstname, String lastname, String height, String weight);
 
     }
 }

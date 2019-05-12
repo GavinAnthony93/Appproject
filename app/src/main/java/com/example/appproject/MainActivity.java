@@ -1,5 +1,6 @@
 package com.example.appproject;
 
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -7,37 +8,42 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.IBinder;
-import android.provider.DocumentsContract;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.PopupMenu;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.appproject.Adapter.FoodAdapter;
 import com.example.appproject.Models.DialogBox;
 import com.example.appproject.Models.FoodDto.Rootobject;
-import com.example.appproject.Models.Nitrition;
 import com.example.appproject.Services.ServiceApi;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements DialogBox.DialogListener {
+public class MainActivity extends AppCompatActivity implements DialogBox.DialogListener, PopupMenu.OnMenuItemClickListener {
 
-    private Button BtnMainAddUser;
-    private Button BtnMainFind;
     private EditText EditFodevare;
     private Button BtnMainAddList;
     private ListView FoodList;
     private Button BtnMainDetailStatus;
     private Button BtnMainStatus;
-    private EditText EditMainName;
-    private EditText EditMainHeight;
-    private EditText EditMainWeight;
+    private Button BtnUserInfo;
+    private EditText EditUnit;
+    private TextView TxtMainName;
+    private TextView TxtLastName;
+    private TextView TxtHeight;
+    private TextView TxtWeight;
+    private ArrayList Flist;
+    private ProgressDialog progressdialog;
     ServiceApi serviceApi;
     boolean mBound = false;
     Rootobject foods;
@@ -48,33 +54,40 @@ public class MainActivity extends AppCompatActivity implements DialogBox.DialogL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        BtnMainAddUser = (Button) findViewById(R.id.BtnMainAddUser);
         foods = new Rootobject();
-        BtnMainFind = (Button) findViewById(R.id.BtnMainFind);
-        EditMainName = (EditText)findViewById(R.id.EditMainName);
-        EditMainHeight = (EditText)findViewById(R.id.EditMainHeight);
-        EditFodevare = (EditText) findViewById(R.id.EditFodevare);
+        final Spinner spinner = findViewById(R.id.spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(MainActivity.this,R.array.vegetables,android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        TxtMainName = (TextView) findViewById(R.id.TxtMainName);
+        TxtHeight = (TextView) findViewById(R.id.TxtHeight);
+        TxtLastName = (TextView) findViewById(R.id.TxtLastName);
+        EditUnit = (EditText)findViewById(R.id.EditUnit);
         BtnMainAddList = (Button) findViewById(R.id.BtnMainAddList);
+        BtnUserInfo = (Button)findViewById(R.id.BtnUserInfo);
         FoodList = (ListView) findViewById(R.id.List);
         BtnMainDetailStatus = (Button) findViewById(R.id.BtnMainDetailStatus);
         BtnMainStatus = (Button) findViewById(R.id.BtnMainStatus);
-        EditMainWeight = (EditText)findViewById(R.id.EditMainWeight);
+        TxtWeight = (TextView) findViewById(R.id.TxtWeight);
 
-        BtnMainAddUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openDialog();
-            }
-        });
 
         BtnMainAddList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                String fodevaretxt = EditFodevare.getText().toString();
-                //check for correct
-                serviceApi.searchFood(fodevaretxt);
+                Intent intent= new Intent(MainActivity.this,FoodAdapter.class);
+                int unit = Integer.valueOf(EditUnit.getText().toString());
+                progressdialog = new ProgressDialog(MainActivity.this);
+                String spinnertext = spinner.getSelectedItem().toString();
+
+                if (spinnertext.equals("Orange"))
+                {
+                    serviceApi.searchFood("09205",unit);
+                }
+                progressdialog.setMessage("Searching for food");
+                progressdialog.show();
+
             }
         });
 
@@ -88,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements DialogBox.DialogL
         BtnMainStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gostatus();
+               gostatus();
             }
         });
 
@@ -102,6 +115,27 @@ public class MainActivity extends AppCompatActivity implements DialogBox.DialogL
         // Bind to LocalService
         Intent intent = new Intent(this, ServiceApi.class);
         bindService(intent, connection, Context.BIND_AUTO_CREATE);
+    }
+
+    public void showPopup(View v)
+    {
+        PopupMenu popupMenu = new PopupMenu(this,v);
+        popupMenu.setOnMenuItemClickListener(this);
+        popupMenu.inflate(R.menu.popup_menu);
+        popupMenu.show();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem Item) {
+        switch (Item.getItemId()){
+            case R.id.AddUser:
+                openDialog();
+                return true;
+            case R.id.FindUser:
+                return true;
+                default:
+                    return false;
+        }
     }
 
     @Override
@@ -118,24 +152,23 @@ public class MainActivity extends AppCompatActivity implements DialogBox.DialogL
     }
 
     @Override
-    public void applyTexts(String name, String height, String weight) {
-        EditMainName.setText(name);
-        EditMainHeight.setText(height);
-        EditMainWeight.setText(weight);
+    public void applyTexts(String name, String last, String height, String weight) {
+        TxtMainName.setText("Surname:" + name);
+        TxtLastName.setText("Lastname: " + last);
+        TxtHeight.setText("Height:" + height + "m");
+        TxtWeight.setText("Weight: " + weight + "kg");
 
     }
-
-
     public void godetail() {
         Intent intent = new Intent(this, DetailStatusActivity.class);
         startActivity(intent);
     }
 
     public void gostatus() {
+
         Intent intent = new Intent(this, StatusActivity.class);
         startActivity(intent);
     }
-
     private ServiceConnection connection = new ServiceConnection() {
 
         @Override
@@ -147,7 +180,6 @@ public class MainActivity extends AppCompatActivity implements DialogBox.DialogL
             mBound = true;
             Log.d("MinService", "onServiceConnected: ");
             updateUI();
-
         }
 
         @Override
@@ -156,14 +188,13 @@ public class MainActivity extends AppCompatActivity implements DialogBox.DialogL
         }
     };
 
+
     public void updateUI()
     {
         nitritionArrayList = serviceApi.getfood();
-        adapter = new FoodAdapter(this, nitritionArrayList );
+        adapter = new FoodAdapter(this, nitritionArrayList ); // TODO avoid creating new adapter here
         FoodList.setAdapter(adapter);
-
     }
-
     private BroadcastReceiver listener = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -171,7 +202,8 @@ public class MainActivity extends AppCompatActivity implements DialogBox.DialogL
         }
     };
 
-}
 
+
+}
 
 
