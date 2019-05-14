@@ -7,6 +7,7 @@ public class VitaminValues {
     public static final double VitaminE = 12;
     public static final double VitaminC = 80;
     public static final double Riboflavin = 1.4;
+    public static final double Thiamin = 1.4;
     public static final double Niacin = 24;
     public static final double VitaminB6 = 0.0021;
     public static final double VitaminB12 = 14;

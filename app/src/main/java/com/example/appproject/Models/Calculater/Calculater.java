@@ -365,6 +365,33 @@ public class Calculater {
         return false;
     }
 
+    public boolean IsEnoughThiamin(ArrayList<Rootobject> foods)
+    {
+        double sum = 0;
+
+        for(Rootobject var: foods){
+            Nutrient[]allnutrients = var.getFoods()[0].getFood().getNutrients();
+            double value = 0;
+            for(Nutrient v : allnutrients)
+            {
+                if(Integer.valueOf(v.getNutrient_id())==(404))
+                {
+                    value = Double.valueOf(v.getValue());
+                }
+
+                sum += value*var.getunit();
+
+            }
+
+            if(sum > VitaminValues.Thiamin)
+            {
+                return true;
+            }
+
+        }
+        return false;
+    }
+
 
 
 }

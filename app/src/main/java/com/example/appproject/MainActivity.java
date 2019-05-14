@@ -25,12 +25,13 @@ import android.widget.Toast;
 
 import com.example.appproject.Adapter.FoodAdapter;
 import com.example.appproject.Models.DialogBox.DialogBox;
+import com.example.appproject.Models.DialogBox.DialogFindUserBox;
 import com.example.appproject.Models.FoodDto.Rootobject;
 import com.example.appproject.Services.ServiceApi;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements DialogBox.DialogListener, PopupMenu.OnMenuItemClickListener {
+public class MainActivity extends AppCompatActivity implements DialogBox.DialogListener, PopupMenu.OnMenuItemClickListener, DialogFindUserBox.DialogListener {
 
     private Button BtnMainAddList;
     private ListView FoodList;
@@ -237,6 +238,7 @@ public class MainActivity extends AppCompatActivity implements DialogBox.DialogL
                 openDialog();
                 return true;
             case R.id.FindUser:
+                OpenDialogFind();
                 return true;
                 default:
                     return false;
@@ -256,12 +258,27 @@ public class MainActivity extends AppCompatActivity implements DialogBox.DialogL
         dialogBox.show(getSupportFragmentManager(), "dialog");
     }
 
+    public void OpenDialogFind()
+    {
+        DialogFindUserBox dialogFindUserBox = new DialogFindUserBox();
+        dialogFindUserBox.show(getSupportFragmentManager(),"dialog");
+    }
+
     @Override
     public void applyTexts(String name, String last, String height, String weight) {
         TxtMainName.setText("Surname:" + name);
         TxtLastName.setText("Lastname: " + last);
         TxtHeight.setText("Height:" + height + "m");
         TxtWeight.setText("Weight: " + weight + "kg");
+
+    }
+
+    @Override
+    public void applyTexts(String name, String last, String id) {
+
+        TxtMainName.setText("Surname:" + name);
+        TxtLastName.setText("Lastname: " + last);
+        TxtHeight.setText("Height:" + id + "m");
 
     }
     public void godetail() {
@@ -305,6 +322,7 @@ public class MainActivity extends AppCompatActivity implements DialogBox.DialogL
             updateUI();
         }
     };
+
 
 }
 
