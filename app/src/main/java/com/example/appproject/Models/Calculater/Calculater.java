@@ -74,7 +74,7 @@ public class Calculater {
             double value = 0;
             for(Nutrient v : allnutrients)
             {
-                if(v.getNutrient_id().equals(401))
+                if(Integer.valueOf(v.getNutrient_id())==(401))
                 {
                     value = Double.valueOf(v.getValue());
                 }
@@ -102,7 +102,7 @@ public class Calculater {
             double value = 0;
             for(Nutrient v : allnutrients)
             {
-                if(v.getNutrient_id().equals(328))
+                if(Integer.valueOf(v.getNutrient_id())==(328))
                 {
                     value = Double.valueOf(v.getValue());
                 }
@@ -129,7 +129,7 @@ public class Calculater {
             double value = 0;
             for(Nutrient v : allnutrients)
             {
-                if(v.getNutrient_id().equals(304))
+                if(Integer.valueOf(v.getNutrient_id())==(304))
                 {
                     value = Double.valueOf(v.getValue());
                 }
@@ -156,7 +156,7 @@ public class Calculater {
             double value = 0;
             for(Nutrient v : allnutrients)
             {
-                if(v.getNutrient_id().equals(418))
+                if(Integer.valueOf(v.getNutrient_id())==(418))
                 {
                     value = Double.valueOf(v.getValue());
                 }
@@ -183,7 +183,7 @@ public class Calculater {
             double value = 0;
             for(Nutrient v : allnutrients)
             {
-                if(v.getNutrient_id().equals(406))
+                if(Integer.valueOf(v.getNutrient_id())==(406))
                 {
                     value = Double.valueOf(v.getValue());
                 }
@@ -212,7 +212,7 @@ public class Calculater {
             double value = 0;
             for(Nutrient v : allnutrients)
             {
-                if(v.getNutrient_id().equals(301))
+                if(Integer.valueOf(v.getNutrient_id())==(301))
                 {
                     value = Double.valueOf(v.getValue());
                 }
@@ -239,7 +239,7 @@ public class Calculater {
             double value = 0;
             for(Nutrient v : allnutrients)
             {
-                if(v.getNutrient_id().equals(304))
+                if(Integer.valueOf(v.getNutrient_id())==(304))
                 {
                     value = Double.valueOf(v.getValue());
                 }
@@ -266,7 +266,7 @@ public class Calculater {
             double value = 0;
             for(Nutrient v : allnutrients)
             {
-                if(v.getNutrient_id().equals(405))
+                if(Integer.valueOf(v.getNutrient_id())==(405))
                 {
                     value = Double.valueOf(v.getValue());
                 }
@@ -293,7 +293,7 @@ public class Calculater {
             double value = 0;
             for(Nutrient v : allnutrients)
             {
-                if(v.getNutrient_id().equals(323))
+                if(Integer.valueOf(v.getNutrient_id())==(323))
                 {
                     value = Double.valueOf(v.getValue());
                 }
@@ -320,7 +320,7 @@ public class Calculater {
             double value = 0;
             for(Nutrient v : allnutrients)
             {
-                if(v.getNutrient_id().equals(309))
+                if(Integer.valueOf(v.getNutrient_id())==(309))
                 {
                     value = Double.valueOf(v.getValue());
                 }
@@ -347,7 +347,7 @@ public class Calculater {
             double value = 0;
             for(Nutrient v : allnutrients)
             {
-                if(v.getNutrient_id().equals(304))
+                if(Integer.valueOf(v.getNutrient_id())==(304))
                 {
                     value = Double.valueOf(v.getValue());
                 }
