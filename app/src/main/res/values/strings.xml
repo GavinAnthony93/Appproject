@@ -3,17 +3,26 @@
     <string name="details_title">Nutrition Details</string>
     <string name="btn_detais">Okay</string>
     <string-array name="vegetables">
-        <item>Pick a meal</item>
-        <item>Orange</item>
-        <item>Broccolli</item>
+        <item> </item>
+        <item>Asparagus</item>
+        <item>Artichokes</item>
+        <item>Avocado</item>
+        <item>Baby Carrot</item>
         <item>Carrot</item>
+        <item>Cauliflower</item>
+        <item>Celery</item>
         <item>Cucumber</item>
+        <item>Eggplant</item>
+        <item>Green Tomato</item>
+        <item>Nuts</item>
+        <item>Orange</item>
+        <item>Orange Tomato</item>
+        <item>Parsnips</item>
         <item>Potato</item>
-        <item>Salad</item>
-        <item>Tomato</item>
-        <item>Rice</item>
-        <item>Pasta</item>
-        <item>Sugar</item>
-
+        <item>Pumpkin</item>
+        <item>Radishes</item>
+        <item>Red bell pepper</item>
+        <item>Red Tomato</item>
+        <item>Yellow Tomato</item>
     </string-array>
 </resources>

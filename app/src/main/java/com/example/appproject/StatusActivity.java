@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.example.appproject.Models.Calculater.Calculater;
 import com.example.appproject.Models.FoodDto.Rootobject;
-import com.example.appproject.Models.VitaminValues;
 import com.example.appproject.Services.ServiceApi;
 
 import java.util.ArrayList;
@@ -22,6 +21,9 @@ public class StatusActivity extends AppCompatActivity {
     ServiceApi serviceApi;
     boolean mBound = false;
     private TextView Txt1;
+    private TextView Txt2;
+    private TextView Txt3;
+
     private ArrayList<Rootobject> nitritionArrayList = new ArrayList<>();
 
 
@@ -31,6 +33,10 @@ public class StatusActivity extends AppCompatActivity {
         setContentView(R.layout.activity_status);
 
         Txt1 = (TextView)findViewById(R.id.Txt1);
+        Txt2 = (TextView)findViewById(R.id.Txt2);
+        Txt3 = (TextView)findViewById(R.id.Txt3);
+
+
 
     }
 
@@ -69,8 +75,21 @@ public class StatusActivity extends AppCompatActivity {
                 Txt1.setText("Du har ikke fået nok jern");
             }
 
-        }
+            if(calculater.IsEnoughVitaminA(nitritionArrayList)) {
+                Txt2.setText("Du har fået nok jern");
+            }
+            else {
+                Txt2.setText("Du har ikke fået nok jern");
+            }
 
+            if(calculater.IsEnoughCalcium(nitritionArrayList)){
+                Txt3.setText("det er fint");
+            }
+            else
+            {
+                Txt3.setText("spis mere");
+            }
+        }
         @Override
         public void onServiceDisconnected(ComponentName arg0) {
             mBound = false;

@@ -21,9 +21,10 @@ import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.appproject.Adapter.FoodAdapter;
-import com.example.appproject.Models.DialogBox;
+import com.example.appproject.Models.DialogBox.DialogBox;
 import com.example.appproject.Models.FoodDto.Rootobject;
 import com.example.appproject.Services.ServiceApi;
 
@@ -31,7 +32,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements DialogBox.DialogListener, PopupMenu.OnMenuItemClickListener {
 
-    private EditText EditFodevare;
     private Button BtnMainAddList;
     private ListView FoodList;
     private Button BtnMainDetailStatus;
@@ -80,13 +80,118 @@ public class MainActivity extends AppCompatActivity implements DialogBox.DialogL
                 int unit = Integer.valueOf(EditUnit.getText().toString());
                 progressdialog = new ProgressDialog(MainActivity.this);
                 String spinnertext = spinner.getSelectedItem().toString();
+                String textsurname = TxtMainName.getText().toString();
+                String textlastname = TxtLastName.getText().toString();
 
-                if (spinnertext.equals("Orange"))
+
+                if(spinnertext.equals("")|| unit==0)
                 {
-                    serviceApi.searchFood("09205",unit);
+                    Toast.makeText(MainActivity.this,"Please Enter!",Toast.LENGTH_SHORT).show();
                 }
-                progressdialog.setMessage("Searching for food");
-                progressdialog.show();
+
+                else if (spinnertext.equals("Orange"))
+                {
+                    serviceApi.searchFood("09205", unit);
+                }
+
+                else if (spinnertext.equals("Cucumber"))
+                {
+                    serviceApi.searchFood("11205", unit);
+                }
+
+                else if (spinnertext.equals("Red Tomato"))
+                {
+                    serviceApi.searchFood("11529", unit);
+                }
+
+                else if (spinnertext.equals("Carrot"))
+                {
+                    serviceApi.searchFood("11124", unit);
+                }
+
+                else if (spinnertext.equals("Baby Carrot"))
+                {
+                    serviceApi.searchFood("11960", unit);
+                }
+
+                else if (spinnertext.equals("Potato"))
+                {
+                    serviceApi.searchFood("11362", unit);
+                }
+
+                else if (spinnertext.equals("Yellow Tomato"))
+                {
+                    serviceApi.searchFood("11696", unit);
+                }
+
+                else if (spinnertext.equals("Green Tomato"))
+                {
+                    serviceApi.searchFood("11527", unit);
+                }
+
+                else if (spinnertext.equals("Orange Tomato"))
+                {
+                    serviceApi.searchFood("11695", unit);
+                }
+
+                else if (spinnertext.equals("Artichokes"))
+                {
+                    serviceApi.searchFood("11007", unit);
+                }
+
+                else if (spinnertext.equals("Asparagus"))
+                {
+                    serviceApi.searchFood("11011", unit);
+                }
+
+                else if (spinnertext.equals("Eggplant"))
+                {
+                    serviceApi.searchFood("11209", unit);
+                }
+
+                else if (spinnertext.equals("Avocado"))
+                {
+                    serviceApi.searchFood("09038", unit);
+                }
+
+                else if (spinnertext.equals("Celery"))
+                {
+                    serviceApi.searchFood("11143", unit);
+                }
+
+                else if (spinnertext.equals("Nuts"))
+                {
+                    serviceApi.searchFood("112087", unit);
+                }
+
+                else if (spinnertext.equals("Cauliflower"))
+                {
+                    serviceApi.searchFood("11135", unit);
+                }
+
+                else if (spinnertext.equals("Pasnips"))
+                {
+                    serviceApi.searchFood("11298", unit);
+                }
+
+                else if (spinnertext.equals("Pumpkin"))
+                {
+                    serviceApi.searchFood("45206215", unit);
+                }
+
+                else if (spinnertext.equals("Red bell pepper"))
+                {
+                    serviceApi.searchFood("45066049", unit);
+                }
+
+                else if (spinnertext.equals("Radishes"))
+                {
+                    serviceApi.searchFood("11429", unit);
+                }
+
+
+                //progressdialog.setMessage("Searching for food");
+               // progressdialog.show();
 
             }
         });
@@ -188,7 +293,6 @@ public class MainActivity extends AppCompatActivity implements DialogBox.DialogL
         }
     };
 
-
     public void updateUI()
     {
         nitritionArrayList = serviceApi.getfood();
@@ -201,8 +305,6 @@ public class MainActivity extends AppCompatActivity implements DialogBox.DialogL
             updateUI();
         }
     };
-
-
 
 }
 

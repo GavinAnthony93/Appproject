@@ -1,5 +1,5 @@
 
-package com.example.appproject.Models;
+package com.example.appproject.Models.FoodDto;
 
 import java.io.Serializable;
 import com.google.gson.annotations.Expose;
